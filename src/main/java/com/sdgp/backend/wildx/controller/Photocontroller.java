@@ -74,3 +74,4 @@ public class PhotoController {
         return ResponseEntity.noContent().build();
     }
 }
+
