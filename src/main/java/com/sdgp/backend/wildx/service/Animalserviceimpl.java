@@ -4,7 +4,7 @@ import com.sdgp.backend.wildx.dto.AnimalDTO;
 import com.sdgp.backend.wildx.dto.AnimalFilterRequest;
 import com.sdgp.backend.wildx.exception.ResourceNotFoundException;
 import com.sdgp.backend.wildx.model.WildlifeAnimal;
-import com.sdgp.backend.wildx.repository.AnimalRepository;
+import com.sdgp.backend.wildx.repository.AnimalRepositoryy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 public class AnimalServiceImpl implements AnimalService {
 
-    private final AnimalRepository animalRepository;
+    private final AnimalRepositoryy animalRepository;
 
     @Override
     public List<AnimalDTO> getAllAnimals() {
