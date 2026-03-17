@@ -1,10 +1,10 @@
 package com.sdgp.backend.wildx.constructor;
 
-import com.sdgp.backend.wildx.dto.AnimalDTO;
+import com.sdgp.backend.wildx.dto.Animaldto;
 import com.sdgp.backend.wildx.dto.AnimalFilterRequest;
 import com.sdgp.backend.wildx.exception.ResourceNotFoundException;
 import com.sdgp.backend.wildx.model.WildlifeAnimal;
-import com.sdgp.backend.wildx.repository.AnimalRepository;
+import com.sdgp.backend.wildx.repository.AnimalRepositoryy;
 import com.sdgp.backend.wildx.service.AnimalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,16 +22,16 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 public class AnimalServiceImpl implements AnimalService {
 
-    private final AnimalRepository animalRepository;
+    private final AnimalRepositoryy animalRepository;
 
     /**
      * Fetches every animal record and converts them into DTOs for the UI.
      */
     @Override
-    public List<AnimalDTO> getAllAnimals() {
+    public List<Animaldto> getAllAnimals() {
         return animalRepository.findAll()
                 .stream()
-                .map(AnimalDTO::from)
+                .map(Animaldto::from)
                 .toList();
     }
 
@@ -40,13 +40,13 @@ public class AnimalServiceImpl implements AnimalService {
      * This directly supports the filter chips and search bar in the Flutter app.
      */
     @Override
-    public List<AnimalDTO> getFilteredAnimals(AnimalFilterRequest filter) {
+    public List<Animaldto> getFilteredAnimals(AnimalFilterRequest filter) {
         return animalRepository.findByFilters(
                         filter.getSearch(),
                         filter.getCategory(),
                         filter.getPark())
                 .stream()
-                .map(AnimalDTO::from)
+                .map(Animaldto::from)
                 .toList();
     }
 
@@ -55,11 +55,11 @@ public class AnimalServiceImpl implements AnimalService {
      * which is then handled by our GlobalExceptionHandler.
      */
     @Override
-    public AnimalDTO getAnimalById(String id) {
+    public Animaldto getAnimalById(String id) {
         WildlifeAnimal animal = animalRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Animal not found with id: " + id));
-        return AnimalDTO.from(animal);
+        return Animaldto.from(animal);
     }
 
     /**
@@ -68,7 +68,7 @@ public class AnimalServiceImpl implements AnimalService {
      */
     @Override
     @Transactional
-    public AnimalDTO toggleFavorite(String id) {
+    public Animaldto toggleFavorite(String id) {
         WildlifeAnimal animal = animalRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Animal not found with id: " + id));
@@ -85,17 +85,17 @@ public class AnimalServiceImpl implements AnimalService {
                 .isFavorite(!animal.isFavorite()) // The actual toggle logic
                 .build();
 
-        return AnimalDTO.from(animalRepository.save(updated));
+        return Animaldto.from(animalRepository.save(updated));
     }
 
     /**
      * Returns only the animals that the user has marked as favorites.
      */
     @Override
-    public List<AnimalDTO> getFavorites() {
+    public List<Animaldto> getFavorites() {
         return animalRepository.findByIsFavoriteTrue()
                 .stream()
-                .map(AnimalDTO::from)
+                .map(Animaldto::from)
                 .toList();
     }
 
