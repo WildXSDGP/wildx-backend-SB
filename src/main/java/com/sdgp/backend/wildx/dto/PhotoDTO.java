@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Data Transfer Object for Wildlife Photos.
- * This is the object that gets sent to the Flutter app to populate the 
+ * This is the object that gets sent to the Flutter app to populate the
  * PhotoGrid and User Profile gallery.
  */
 @Data
@@ -26,7 +26,8 @@ public class PhotoDTO {
      * Includes logic to format the timestamp into a human-readable format.
      */
     public static PhotoDTO from(WildlifePhoto photo) {
-        // Formatter to convert LocalDateTime to a readable string (e.g., "2026-03-17 14:30")
+        // Formatter to convert LocalDateTime to a readable string (e.g., "2026-03-17
+        // 14:30")
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         return PhotoDTO.builder()
@@ -35,8 +36,7 @@ public class PhotoDTO {
                 .animalType(photo.getAnimalType())
                 .parkName(photo.getParkName())
                 .uploadedBy(photo.getUploadedBy())
-                .uploadedAt(photo.getUploadedAt() != null ? 
-                            photo.getUploadedAt().format(formatter) : null)
+                .uploadedAt(photo.getUploadedAt() != null ? photo.getUploadedAt().format(formatter) : null)
                 .build();
     }
 }
