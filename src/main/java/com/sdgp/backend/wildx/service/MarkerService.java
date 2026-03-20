@@ -27,5 +27,11 @@ public class MarkerService {
         String discriminator = convertToDiscriminator(animalType);
         return markerRepository.findByParkIdAndDiscriminator(parkId, discriminator);
     }
+    
+    // Helper method to convert animal name to discriminator
+    private String convertToDiscriminator(String animalType) {
+        return animalType.toUpperCase().replace(" ", "_");
+    }
+
 
 }
