@@ -32,6 +32,11 @@ public class MarkerService {
     private String convertToDiscriminator(String animalType) {
         return animalType.toUpperCase().replace(" ", "_");
     }
+    
+    // Get distinct animal types in a park
+    public List<String> getAnimalTypesInPark(Long parkId) {
+        return markerRepository.findDistinctAnimalTypesByParkId(parkId);
+    }
 
 
 }
