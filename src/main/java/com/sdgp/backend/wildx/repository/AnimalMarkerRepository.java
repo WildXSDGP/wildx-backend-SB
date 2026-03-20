@@ -22,6 +22,11 @@ public interface AnimalMarkerRepository extends JpaRepository<AnimalMarker, Long
 		@Query(value = "SELECT DISTINCT animal_type FROM markers WHERE park_id = :parkId ORDER BY animal_type", 
 		           nativeQuery = true)
 		    List<String> findDistinctAnimalTypesByParkId(@Param("parkId") Long parkId);
+		
+	// Get markers by park and specific animal type discriminator
+	    @Query(value = "SELECT * FROM markers WHERE park_id = :parkId AND animal_type = :discriminator", nativeQuery = true)
+	    List<AnimalMarker> findByParkIdAndDiscriminator(@Param("parkId") Long parkId,
+	            @Param("discriminator") String discriminator);
 	
 
 }

@@ -21,5 +21,11 @@ public class MarkerService {
 	public List<AnimalMarker> getMarkersByPark(Long parkId) {
         return markerRepository.findByNationalParkId(parkId);
     }
+	
+	// Get markers by animal type discriminator
+    public List<AnimalMarker> getMarkersByParkAndAnimalType(Long parkId, String animalType) {
+        String discriminator = convertToDiscriminator(animalType);
+        return markerRepository.findByParkIdAndDiscriminator(parkId, discriminator);
+    }
 
 }
