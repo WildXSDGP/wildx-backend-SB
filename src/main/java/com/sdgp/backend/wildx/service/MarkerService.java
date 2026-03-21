@@ -1,6 +1,8 @@
 package com.sdgp.backend.wildx.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,20 @@ public class MarkerService {
         return markerRepository.findByIsVerifiedFalse();
     }
     
+    //Get marker count by animal type for a park
+   
+   public Map<String, Long> getMarkerCountsByAnimalType(Long parkId) {
+       List<Object[]> results = markerRepository.countMarkersByAnimalType(parkId);
+       Map<String, Long> counts = new HashMap<>();
+
+       for (Object[] result : results) {
+           String animalType = (String) result[0];
+           Long count = ((Number) result[1]).longValue();
+           counts.put(animalType, count);
+       }
+
+       return counts;
+   }
     
 
 
