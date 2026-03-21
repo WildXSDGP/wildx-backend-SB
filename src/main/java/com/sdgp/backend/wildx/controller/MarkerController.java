@@ -42,6 +42,28 @@ public class MarkerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+	
+	// controller to get verified markers 
+	@GetMapping("/park/{parkId}/verified")
+    public ResponseEntity<List<AnimalMarker>> getVerifiedMarkersByPark(@PathVariable Long parkId) {
+        try {
+            List<AnimalMarker> markers = markerService.getVerifiedMarkersByPark(parkId);
+            return ResponseEntity.ok(markers);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+	
+	// controller to get unverified markers
+	@GetMapping("/unverified")
+    public ResponseEntity<List<AnimalMarker>> getUnverifiedMarkers() {
+        try {
+            List<AnimalMarker> markers = markerService.getUnverifiedMarkers();
+            return ResponseEntity.ok(markers);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 
 }
