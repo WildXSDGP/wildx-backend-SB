@@ -155,6 +155,22 @@ public class MarkerService {
               throw new IllegalArgumentException("Unknown animal type: " + animalType);
       }
   }
+  // update marker 
+	  public AnimalMarker updateMarkerNotes(Long markerId, String notes) {
+	      AnimalMarker marker = markerRepository.findById(markerId)
+	              .orElseThrow(() -> new RuntimeException("Marker not found with id: " + markerId));
+	      marker.setNotes(notes);
+	      return markerRepository.save(marker);
+	  }
+  
+	  // delete marker
+	  public void deleteMarker(Long markerId) {
+	        if (!markerRepository.existsById(markerId)) {
+	            throw new RuntimeException("Marker not found with id: " + markerId);
+	        }
+	        markerRepository.deleteById(markerId);
+	    }
+  
 
 
 
