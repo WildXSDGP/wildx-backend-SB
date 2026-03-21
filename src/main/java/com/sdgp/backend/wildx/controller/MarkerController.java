@@ -116,6 +116,19 @@ public class MarkerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
+    //controllers to get markers by Id
+    @GetMapping("/{markerId}")
+    public ResponseEntity<AnimalMarker> getMarkerById(@PathVariable Long markerId) {
+        try {
+            AnimalMarker marker = markerService.getMarkerById(markerId);
+            return ResponseEntity.ok(marker);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 
 
