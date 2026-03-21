@@ -1,5 +1,6 @@
 package com.sdgp.backend.wildx.service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,6 +119,43 @@ public class MarkerService {
        }
 
    }
+   
+   //Create marker with specific spottedAt timestamp
+  
+  public AnimalMarker createMarkerWithTime(Long parkId, String animalType, Double latitude,
+          Double longitude, LocalDateTime spottedAt,
+          String reporterName, String notes) {
+      NationalPark park = nationalParkRepository.findById(parkId)
+              .orElseThrow(() -> new RuntimeException("Park not found with id: " + parkId));
+
+      AnimalMarker marker = createMarkerInstanceWithTime(animalType, park, latitude, longitude,
+              spottedAt, reporterName, notes);
+
+      return markerRepository.save(marker);
+  }
+  
+  private AnimalMarker createMarkerInstanceWithTime(String animalType, NationalPark park,
+          Double latitude, Double longitude,
+          LocalDateTime spottedAt,
+          String reporterName, String notes) {
+      switch (convertToDiscriminator(animalType)) {
+          case "ASIAN_ELEPHANT":
+              return new AsianElephantMarker(park, latitude, longitude, spottedAt, reporterName, notes);
+          case "SRI_LANKAN_LEOPARD":
+              return new SriLankanLeopardMarker(park, latitude, longitude, spottedAt, reporterName, notes);
+          case "SPOTTED_DEER":
+              return new SpottedDeerMarker(park, latitude, longitude, spottedAt, reporterName, notes);
+          case "CROCODILE":
+              return new CrocodileMarker(park, latitude, longitude, spottedAt, reporterName, notes);
+          case "WATER_BUFFALO":
+              return new WaterBuffaloMarker(park, latitude, longitude, spottedAt, reporterName, notes);
+          case "SLOTH_BEAR":
+              return new SlothBearMarker(park, latitude, longitude, spottedAt, reporterName, notes);
+          default:
+              throw new IllegalArgumentException("Unknown animal type: " + animalType);
+      }
+  }
+
 
 
 }
