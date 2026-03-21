@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -167,6 +168,20 @@ public class MarkerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
+    @PutMapping("/{markerId}/notes")
+    public ResponseEntity<AnimalMarker> updateMarkerNotes(
+            @PathVariable Long markerId,
+            @RequestBody UpdateNotesRequest request) {
+        try {
+            AnimalMarker marker = markerService.updateMarkerNotes(markerId, request.getNotes());
+            return ResponseEntity.ok(marker);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 
 
@@ -230,6 +245,18 @@ class MarkerRequest {
     public void setReporterName(String reporterName) {
         this.reporterName = reporterName;
     }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+}
+
+class UpdateNotesRequest {
+    private String notes;
 
     public String getNotes() {
         return notes;
