@@ -29,5 +29,10 @@ public interface AnimalMarkerRepository extends JpaRepository<AnimalMarker, Long
 	            @Param("discriminator") String discriminator);
 	    
 	 
+	  // Get all unverified markers (for admin review)
+	     
+	    List<AnimalMarker> findByIsVerifiedFalse();
+	    
+	 
 
 }
