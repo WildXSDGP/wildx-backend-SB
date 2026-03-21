@@ -38,6 +38,16 @@ public class MarkerService {
         return markerRepository.findDistinctAnimalTypesByParkId(parkId);
     }
     
+    //get verified markers
+    public List<AnimalMarker> getVerifiedMarkersByPark(Long parkId) {
+        return markerRepository.findByNationalParkIdAndIsVerifiedTrue(parkId);
+    }
+    
+    // get unverified markers
+    public List<AnimalMarker> getUnverifiedMarkers() {
+        return markerRepository.findByIsVerifiedFalse();
+    }
+    
     
 
 
