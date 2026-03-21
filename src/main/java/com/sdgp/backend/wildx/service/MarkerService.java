@@ -170,6 +170,11 @@ public class MarkerService {
 	        }
 	        markerRepository.deleteById(markerId);
 	    }
+	  // get markers by id
+	  public AnimalMarker getMarkerById(Long markerId) {
+	        return markerRepository.findById(markerId)
+	                .orElseThrow(() -> new RuntimeException("Marker not found with id: " + markerId));
+	    }
   
 
 
