@@ -1,5 +1,6 @@
 package com.sdgp.backend.wildx.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -132,4 +133,72 @@ public class MarkerController {
 
 
 
+}
+
+
+class MarkerRequest {
+    private Long parkId;
+    private String animalType;
+    private Double latitude;
+    private Double longitude;
+    private LocalDateTime spottedAt;
+    private String reporterName;
+    private String notes;
+
+    // Getters and Setters
+    public Long getParkId() {
+        return parkId;
+    }
+
+    public void setParkId(Long parkId) {
+        this.parkId = parkId;
+    }
+
+    public String getAnimalType() {
+        return animalType;
+    }
+
+    public void setAnimalType(String animalType) {
+        this.animalType = animalType;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public LocalDateTime getSpottedAt() {
+        return spottedAt;
+    }
+
+    public void setSpottedAt(LocalDateTime spottedAt) {
+        this.spottedAt = spottedAt;
+    }
+
+    public String getReporterName() {
+        return reporterName;
+    }
+
+    public void setReporterName(String reporterName) {
+        this.reporterName = reporterName;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }
