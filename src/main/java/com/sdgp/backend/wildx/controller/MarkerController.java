@@ -88,6 +88,34 @@ public class MarkerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
+    // controller to get recent markers
+    @GetMapping("/park/{parkId}/recent")
+    public ResponseEntity<List<AnimalMarker>> getRecentMarkers(@PathVariable Long parkId) {
+        try {
+            List<AnimalMarker> markers = markerService.getRecentMarkers(parkId);
+            return ResponseEntity.ok(markers);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    // get markers for specific bound
+    @GetMapping("/park/{parkId}/bounds")
+    public ResponseEntity<List<AnimalMarker>> getMarkersInBounds(
+            @PathVariable Long parkId,
+            @RequestParam Double minLat,
+            @RequestParam Double maxLat,
+            @RequestParam Double minLng,
+            @RequestParam Double maxLng) {
+        try {
+            List<AnimalMarker> markers = markerService.getMarkersInBounds(
+                    parkId, minLat, maxLat, minLng, maxLng);
+            return ResponseEntity.ok(markers);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 
 
