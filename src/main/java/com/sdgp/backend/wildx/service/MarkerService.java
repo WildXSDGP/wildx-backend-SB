@@ -22,21 +22,23 @@ public class MarkerService {
         return markerRepository.findByNationalParkId(parkId);
     }
 	
-	// Get markers by animal type discriminator
+	//Get markers by animal type discriminator
     public List<AnimalMarker> getMarkersByParkAndAnimalType(Long parkId, String animalType) {
         String discriminator = convertToDiscriminator(animalType);
         return markerRepository.findByParkIdAndDiscriminator(parkId, discriminator);
     }
     
-    // Helper method to convert animal name to discriminator
+    //Helper method to convert animal name to discriminator
     private String convertToDiscriminator(String animalType) {
         return animalType.toUpperCase().replace(" ", "_");
     }
     
-    // Get distinct animal types in a park
+    //Get distinct animal types in a park
     public List<String> getAnimalTypesInPark(Long parkId) {
         return markerRepository.findDistinctAnimalTypesByParkId(parkId);
     }
+    
+    
 
 
 }
