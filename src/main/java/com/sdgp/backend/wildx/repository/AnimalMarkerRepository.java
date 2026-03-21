@@ -32,6 +32,18 @@ public interface AnimalMarkerRepository extends JpaRepository<AnimalMarker, Long
 	  // Get all unverified markers (for admin review)
 	     
 	    List<AnimalMarker> findByIsVerifiedFalse();
+	    // get markers by reporters name
+	    List<AnimalMarker> findByReporterName(String reporterName);
+	    
+	    // Count animal type markers 
+	    @Query(value = "SELECT animal_type, COUNT(*) as count FROM markers WHERE park_id = :parkId GROUP BY animal_type", 
+	            nativeQuery = true)
+	     List<Object[]> countMarkersByAnimalType(@Param("parkId") Long parkId);
+	    
+	    //get recent markers
+	     @Query(value = "SELECT * FROM markers WHERE park_id = :parkId AND spotted_at >= NOW() - INTERVAL '24 hours' ORDER BY spotted_at DESC", 
+	             nativeQuery = true)
+	      List<AnimalMarker> findRecentMarkersByParkId(@Param("parkId") Long parkId);
 	    
 	 
 
