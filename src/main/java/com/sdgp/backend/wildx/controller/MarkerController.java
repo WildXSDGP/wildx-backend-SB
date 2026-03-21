@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -176,6 +177,19 @@ public class MarkerController {
         try {
             AnimalMarker marker = markerService.updateMarkerNotes(markerId, request.getNotes());
             return ResponseEntity.ok(marker);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    //controller to delete marker
+    @DeleteMapping("/{markerId}")
+    public ResponseEntity<Void> deleteMarker(@PathVariable Long markerId) {
+        try {
+            markerService.deleteMarker(markerId);
+            return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
