@@ -44,6 +44,20 @@ public interface AnimalMarkerRepository extends JpaRepository<AnimalMarker, Long
 	     @Query(value = "SELECT * FROM markers WHERE park_id = :parkId AND spotted_at >= NOW() - INTERVAL '24 hours' ORDER BY spotted_at DESC", 
 	             nativeQuery = true)
 	      List<AnimalMarker> findRecentMarkersByParkId(@Param("parkId") Long parkId);
+	     
+	     
+	     //Get markers within a geographic bounding box
+	     
+	    @Query(value = "SELECT * FROM markers WHERE park_id = :parkId " +
+	                   "AND latitude BETWEEN :minLat AND :maxLat " +
+	                   "AND longitude BETWEEN :minLng AND :maxLng", 
+	           nativeQuery = true)
+	    List<AnimalMarker> findMarkersInBounds(@Param("parkId") Long parkId,
+	                                           @Param("minLat") Double minLat,
+	                                           @Param("maxLat") Double maxLat,
+	                                           @Param("minLng") Double minLng,
+	                                           @Param("maxLng") Double maxLng);
+	}
 	    
 	 
 
