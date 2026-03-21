@@ -57,7 +57,7 @@ public interface AnimalMarkerRepository extends JpaRepository<AnimalMarker, Long
 	                                           @Param("maxLat") Double maxLat,
 	                                           @Param("minLng") Double minLng,
 	                                           @Param("maxLng") Double maxLng);
-	}
+	
 	    
 	 
 
